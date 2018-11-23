@@ -31,7 +31,6 @@ export default {
   margin-top: 60px;
   h1{
     color: #42b983;
-    background: #42b983;
   }
 }
 </style>
