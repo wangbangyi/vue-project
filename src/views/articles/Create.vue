@@ -26,6 +26,11 @@
 <script>
 
 import SimpleMDE from 'simplemde'
+// 引入 highlight.js 的默认值
+import hljs from 'highlight.js'
+
+// 添加全局变量
+window.hljs = hljs
 
 export default {
   name: 'Create',
