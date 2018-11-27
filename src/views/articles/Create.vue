@@ -84,7 +84,8 @@ export default {
           content
         }
 
-        console.log(article)
+        // 为 => 分发 post 事件，并附带参数 { article }
+        this.$store.dispatch('post', { article })
         this.clearData()
       }
     },
