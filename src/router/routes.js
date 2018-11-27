@@ -48,5 +48,14 @@ export default [
       }
     ]
   },
+
+  // 创作文章路由
+  {
+    path: '/articles/create',
+    name: 'Create',
+    component: () => import('@/views/articles/Create'),
+    // 我们在配置项中设置 meta 为 { auth: true }，以标识当前路由需要登录才能访问
+    meta: { auth: true }
+  },
   
 ]
