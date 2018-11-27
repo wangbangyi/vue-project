@@ -19,12 +19,7 @@ export default [
     component: () => import('@/views/auth/Login')
   },
 
-  // 编辑用户信息
-  {
-    path: '/users/1/edit',
-    name: 'EditUsers',
-    component: () => import('@/views/users/Edit.vue')
-  },
+  
 
   // 编辑资料路由
   {
