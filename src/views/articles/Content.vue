@@ -1,6 +1,4 @@
 <template>
-  <div class="blog-container" style="margin-top:20px">
-    <div class="blog-pages">
       <div class="col-md-9 left-col pull-right">
         <div class="panel article-body content-body">
           <h1 class="text-center">{{ title }}</h1>
@@ -23,8 +21,6 @@
           </div>
         </div>
       </div>
-    </div>
-  </div>
 </template>
 
 <script>

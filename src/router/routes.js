@@ -59,13 +59,7 @@ export default [
   },
 
 
-  // 文章内容路由
-  {
-    // 路径中 :articleId 以冒号开头，代表的是该项参数是动态的，它能匹配任何值，比如 1、2、3 或者任何非数字字符。
-    path: '/articles/:articleId/content',
-    name: 'Content',
-    component: () => import('@/views/articles/Content.vue')
-  },
+
 
   // 编辑文章路由
   {
@@ -84,6 +78,11 @@ export default [
         path: '',
         name: 'Column',
         component: () => import('@/views/articles/List.vue')
+      },
+      {
+        path: '/articles/:articleId/content',
+        name: 'Content',
+        component: () => import('@/views/articles/Content.vue')
       }
     ]
   },
