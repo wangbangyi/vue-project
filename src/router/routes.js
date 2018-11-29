@@ -66,5 +66,13 @@ export default [
     name: 'Content',
     component: () => import('@/views/articles/Content.vue')
   },
+
+  // 编辑文章路由
+  {
+    path: '/articles/:articleId/edit',
+    name: 'Edit',
+    component: () => import('@/views/articles/Create'),
+    meta: { auth: true }
+  },
   
 ]
