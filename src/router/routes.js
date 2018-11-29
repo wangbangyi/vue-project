@@ -74,5 +74,13 @@ export default [
     component: () => import('@/views/articles/Create'),
     meta: { auth: true }
   },
+
+  // Column
+  {
+    // 这里的 path 包含动态路径参数 :user，我们用它来匹配用户名。
+    path: '/:user',
+    name: 'Column',
+    component: () => import('@/views/articles/Column')
+  },
   
 ]
