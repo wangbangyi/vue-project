@@ -52,7 +52,7 @@
             <p class="text-md">如果你想学习更多前端的知识，VuejsCaff.com 是个不错的开始</p>
             <div class="payment-qrcode inline-block">
               <h5>扫一扫打开 VuejsCaff.com</h5>
-              <p><img src="https://vuejscaffcdn.phphub.org/uploads/images/201803/25/2/g3CFVs0h7B.jpeg?imageView2/2/w/1024/h/0" width="160"></p>
+              <p><qrcode-vue value="https://vuejscaff.com/" :size="160"></qrcode-vue></p>
             </div>
           </div>
           <div slot="footer">
@@ -67,9 +67,15 @@ import SimpleMDE from 'simplemde'
 import hljs from 'highlight.js'
 import emoji from 'node-emoji'
 import { mapState } from 'vuex'
+// 引入 qrcode.vue 的默认值
+import QrcodeVue from 'qrcode.vue'
 
 export default {
   name: 'Content',
+  // 添加 components 选项，并注册 QrcodeVue
+  components: {
+    QrcodeVue
+  },
   data() {
     return {
       title: '', // 文章标题
