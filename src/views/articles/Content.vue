@@ -59,6 +59,20 @@
             <div class="text-center">祝你学习愉快 :)</div>
           </div>
         </Modal>
+
+        <!-- 评论框 -->
+        <div id="reply-box" class="reply-box form box-block">
+          <div class="form-group comment-editor">
+            <textarea v-if="auth" id="editor"></textarea>
+            <textarea v-else disabled class="form-control" placeholder="需要登录后才能发表评论." style="height:172px"></textarea>
+          </div>
+          <div class="form-group reply-post-submit">
+            <button id="reply-btn" :disabled="!auth" @click="comment" class="btn btn-primary">回复</button>
+            <span class="help-inline">Ctrl+Enter</span>
+          </div>
+          <div v-show="commentHtml" id="preview-box" class="box preview markdown-body" v-html="commentHtml"></div>
+        </div>
+        
       </div>
 </template>
 
@@ -85,6 +99,7 @@ export default {
       likeUsers: [], // 点赞用户列表
       likeClass: '', // 点赞样式
       showQrcode: false, // 是否显示打赏弹窗
+      commentHtml: '', // 评论 HTML
     }
   },
   computed: {
@@ -119,6 +134,48 @@ export default {
 
     this.articleId = articleId
   },
+
+  mounted() {
+  // 已登录时，才开始创建
+  if (this.auth) {
+    // 自动高亮编辑器的内容
+    window.hljs = hljs
+
+    const simplemde = new SimpleMDE({
+      element: document.querySelector('#editor'),
+      placeholder: '请使用 Markdown 格式书写 ;-)，代码片段黏贴时请注意使用高亮语法。',
+      spellChecker: false,
+      autoDownloadFontAwesome: false,
+      // 不显示工具栏
+      toolbar: false,
+      // 不显示状态栏
+      status: false,
+      renderingConfig: {
+        codeSyntaxHighlighting: true
+      }
+    })
+
+    // 内容改变监听
+    simplemde.codemirror.on('change', () => {
+      // 更新 commentMarkdown 为编辑器的内容
+      this.commentMarkdown = simplemde.value()
+      // 更新 commentHtml，我们先替换原内容中的 emoji 标识，然后使用 markdown 方法将内容转成 HTML
+      this.commentHtml = simplemde.markdown(emoji.emojify(this.commentMarkdown, name => name))
+    })
+
+    // 按键松开监听
+    simplemde.codemirror.on('keyup', (codemirror, event) => {
+      // 使用 Ctrl+Enter 时提交评论
+      if (event.ctrlKey && event.keyCode === 13) {
+        this.comment()
+      }
+    })
+
+    // 将编辑器添加到当前实例
+    this.simplemde = simplemde
+  }
+},
+
   methods: {
     editArticle() {
       this.$router.push({ name: 'Edit', params: { articleId: this.articleId } })
@@ -166,6 +223,25 @@ export default {
             this.likeUsers = likeUsers
           })
         }
+      }
+    },
+
+    comment() {
+      // 编辑器的内容不为空时
+      if (this.commentMarkdown && this.commentMarkdown.trim() !== '') {
+        // 分发 comment 事件以提交评论
+        this.$store.dispatch('comment', {
+          comment: { content: this.commentMarkdown },
+          articleId: this.articleId
+        }).then((comments) => {
+          // 在浏览器的控制台打印返回的评论列表
+          console.log(comments)
+        })
+
+        // 清空编辑器
+        this.simplemde.value('')
+        // 使回复按钮获得焦点
+        document.querySelector('#reply-btn').focus()
       }
     },
   }
