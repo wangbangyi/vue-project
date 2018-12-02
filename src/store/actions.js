@@ -138,6 +138,13 @@ export const comment = ({ commit, state }, { articleId, comment, commentId }) =>
             date
           })
         }
+      } else {
+        for (let comment of comments) {
+          if(parseInt(comment.commentId) === parseInt(commentId)) {
+            comment.content = content
+            break
+          }
+        }
       }
 
       // 更新文章的评论列表
