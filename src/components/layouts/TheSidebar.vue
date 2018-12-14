@@ -40,7 +40,7 @@
         <ul class="list">
           <li v-for="(article, index) in hotArticles">
             <router-link :to="`/articles/${article.articleId}/content`">
-              <span v-if="index === 0">?</span>
+              <span v-if="index === 0">1.</span>
               <span v-else>{{ index + 1 }}.</span>
               {{ article.title }}
             </router-link>
