@@ -19,6 +19,7 @@ import ls from './utils/localStorage'
 import './mock'
 // 引入 axios 的默认值
 import axios from 'axios'
+// test
 
 // 使用插件
 Vue.use(VueSweetalert2)
