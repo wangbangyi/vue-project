@@ -70,6 +70,13 @@ export default [
     meta: { auth: true }
   },
 
+  // Search
+  {
+    path: '/search',
+    name: 'Search',
+    component: () => import('@/views/Search')
+  },
+
   // Column
   {
     path: '/:user',
